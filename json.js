@@ -201,3 +201,56 @@ const figurasHistoricas = [
 
 // acessar as informações
 console.log(figurasHistoricas);
+
+//agora os reino e bagulho
+
+const reinosepaises = [ {
+
+"nome": "Rússia de Kiev",
+"periodo": "idade média",
+"principaisReis": [
+    "Rurik",
+    "Yaroslav, o Sábio",
+    "Askold",
+], 
+"descrição": "Rússia de Kiev foi o estado que deu origem aos paises modernos eslavos. A Rússia de Kiev foi fundada por vikings.",
+},
+{ 
+
+"nome":"Império Romano",
+"periodo": "idade antiga",
+"principaisReis": [
+    "Julio Cesar",
+    "Augustus",
+    "Nero",
+    "Trajano",
+],
+"descrição": "O Império Romano foi simplesmente a maior potencia bélica e conquistadora em toda a idade antiga. Sua influência persiste até os dias de hoje.",
+},
+{
+
+"nome":"União Soviética",
+"periodo":"contemporâneo",
+"principaisReis": [
+    "Vladimir Lenin",
+    "Stalin",
+    "Gorbachev",
+],
+"descrição": "A União Soviética foi a união de várias Repúblicas Soviéticas subnacionais, que se estabeleceu após a Revolução Russa liderada por Lenin."
+
+},
+{
+
+"nome": "Inglaterra anglo-saxã",
+"periodo": "idade média",
+"principaisReis": [
+    "Rei Alfredo, o Grande",
+    "Canute, o Grande",
+    "Etelstano",
+    "Eduardo, o Confessor",
+],
+"descrição": "O reino anglo-saxão da Inglaterra foi um reino "
+
+}
+
+]
