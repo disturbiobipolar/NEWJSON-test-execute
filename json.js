@@ -376,9 +376,72 @@ const reinosepaises = [ {
     "Basílio II",
     "Zoé"
  ],
+ "curiosidadesDicas": [
+    "Um dos impérios que mais duraram na história",
+    "Tem herança romana",
+    "Sede da igreja ortodóxa"
+],
  "descricao": "O herdeiro da cultura romana,império cristão que durou mais de 1000 anos, até sua queda ao império Otomano."
 },
 {
+    "nome": "Esparta",
+    "periodo": [
+        "idade antiga",
+        "idade do bronze",
+        "antiguidade clássica",
+    ],
+    "continente": "Europa",
+    "atuaispaises": "Grécia",
+    "principaisReis": [
+       "Menelau",
+       "Leônidas I"
+    ],
+    "descricao": "Esparta foi uma das cidade-estado gregas mais memoráveis da antiguidade clássica, lembrada por sua cultura extxremamente militar e guerreira."
+   },
+   {
+    "nome": "Império Mongol",
+    "periodo": [
+        "idade média",
+        "idade média plena",
+        "idade média tardia"
+    ],
+    "continente": [ 
+        "Ásia",
+        "Europa"
+    ],
+    "atuaispaises": [
+       "Mongólia",
+       "China",
+       "Ucrânia",
+       "Rússia",
+       "Cazaquistão",
+       "Turquia",
+       "Paquistão",
+       "Coreia do Sul",
+       "Coreia do Norte",
+       "Irã",
+       "Afeganistão",
+       "Uzbequistão",
+       "Índia",
+       "Turquemenistão",
+       "Moldávia",
+       "Bielorússia",
+       "Armênia",
+       "Azerbaijão",
+       "Afeganistão"
+    ],
+    "principaisReis": [
+       "Genghis Khan",
+       "Kublai Khan"
+    ],
+   "curiosidadesDicas": [
+    "Foi o maior império da história",
+    "Devastou as estepes da eurásia",
+    "Império que derrubou a China e a Rússia de Kiev"
+   ],
+    "descricao": "Maior império já visto na história, devastou as estepes da eurásia e deu um fim à Rússia de Kiev."
+   },
+   {
     "nome": "",
     "periodo": "",
     "continente": "",
