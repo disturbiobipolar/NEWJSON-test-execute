@@ -13,7 +13,11 @@ const figurasHistoricas = [
     },
     {
         "nome": "Júlio César",
-        "ocupacao": "General, Político, Ditador",
+        "ocupacao": [
+             "General",
+              "Político",
+               "Ditador"
+            ],
         "principaisRealizacoes": [
             "Conquista da Gália",
             "Reformas no Império Romano",
@@ -199,7 +203,6 @@ const figurasHistoricas = [
     }
 ];
 
-// acessar as informações
 
 
 //agora os reino e bagulho
@@ -442,18 +445,35 @@ const reinosepaises = [ {
     "descricao": "Maior império já visto na história, devastou as estepes da eurásia e deu um fim à Rússia de Kiev."
    },
    {
-    "nome": "",
-    "periodo": "",
-    "continente": "",
+    "nome": "Império Aquemênida",
+    "periodo": [
+        "idade antiga",
+        "antiguidade clássica",
+        "antiguidade oriental",
+    ],
+    "continente": [
+        "África",
+        "Europa",
+        "Ásia"
+    ],
     "atuaispaises": [
-       "",
-       ""
+       "Afeganistão",
+       "Irã",
+       "Armênia",
+       "Azerbaijão",
+       "Palestina",
+       "Síria",
+       "Índia",
+       "Egito",
+       "Bulgária",
+       "Turquia",
+       "Romênia"
     ],
     "principaisReis": [
-       "",
-       ""
+       "Ciro, o Grande",
+       "Dario III",
+       "Alexandre, o Grande"
     ],
-    "descricao": ""
+    "descricao": "O Império Aquemênida foi o primeiro império global da idade antiga; seu território alcançava mais de dois continentes e maior parte dos países asiáticos e até a Europa. Teve seu fim na invasão de Alexandre, o Grande."
    },
-
 ];
