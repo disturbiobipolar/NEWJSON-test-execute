@@ -3,7 +3,6 @@ console.log(figurasHistoricas[7]);
 let figurasPossiveis = [...figurasHistoricas];
 let perguntaIndex = 0;
 
-// Perguntas adicionais para deixar o jogo mais interessante
 let perguntas = [
     { campo: "ocupacao", texto: "A pessoa é um(a) {ocupacao}?" },
     { campo: "periodo", texto: "A pessoa viveu na {periodo}?" },
@@ -11,7 +10,7 @@ let perguntas = [
     { campo: "descricao", texto: "A pessoa é famosa por sua inteligência ou sabedoria?" }
 ];
 
-// Função para embaralhar as perguntas
+// função p  embaralhar as perguntas
 function shuffleQuestions(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -19,17 +18,17 @@ function shuffleQuestions(arr) {
     }
 }
 
-// Função para gerar a próxima pergunta
+// função para gerar a próxima pergunta
 function nextQuestion() {
     if (figurasPossiveis.length === 1) {
-        // Se restar apenas uma figura, mostramos o resultado
-        document.getElementById('question').textContent = `Você estava pensando em ${figurasPossiveis[0].nome}?`;
-        document.getElementById('result').textContent = figurasPossiveis[0].descricao;
+        // caso reste só uma pessoa, vai mostra isso ae
+        document.getElementById('question').textContent = `Você estava pensando em ${figurasHistoricas[0].nome}?`;
+        document.getElementById('result').textContent = figurasHistoricas[0].descricao;
         return;
     }
 
     if (perguntaIndex >= perguntas.length) {
-        // Se não houver mais perguntas para fazer, finalize o jogo
+        // se não tiver mais perguntas para fazer, finaliza o jogo
         document.getElementById('question').textContent = "Eu não consegui adivinhar. Você tem outra figura em mente?";
         document.getElementById('result').textContent = "";
         return;
@@ -39,13 +38,13 @@ function nextQuestion() {
     const atributo = pergunta.campo;
 
     if (atributo === 'principaisRealizacoes') {
-        // Se for para perguntar sobre realizações, escolhe uma realização aleatória
-        const realizacaoIndex = Math.floor(Math.random() * figurasPossiveis[0].principaisRealizacoes.length);
-        const realizacao = figurasPossiveis[0].principaisRealizacoes[realizacaoIndex];
+        // se for para pergunta sobre realizações dos mano, escolhe uma realização aleatória
+        const realizacaoIndex = Math.floor(Math.random() * figurasHistoricas[0].principaisRealizacoes.length);
+        const realizacao = figurasHistoricas[0].principaisRealizacoes[realizacaoIndex];
         document.getElementById('question').textContent = pergunta.texto.replace("{realizacao}", realizacao);
     } else {
-        // Para as outras perguntas (ocupação, período, etc.), escolhemos o primeiro valor
-        const valor = figurasPossiveis[0][atributo] || figurasPossiveis[0][atributo][0];  // Pega o primeiro valor caso seja uma lista
+        // para as outras perguntas (ocupação, período, etc.), esse codigo burro escolhe o primeiro valor
+        const valor = figurasHistoricas[0][atributo] || figurasHistoricas[0][atributo][0];  // Pega o primeiro valor caso seja uma lista
         document.getElementById('question').textContent = pergunta.texto.replace(`{${atributo}}`, valor);
     }
 }
@@ -63,7 +62,7 @@ function answer(resposta) {
             }
         });
     } else if (resposta === "nao") {
-        filtro = figurasPossiveis.filter(figura => {
+        filtro = figurasHistoricas.filter(figura => {
             if (figura[perguntas[perguntaIndex].campo] instanceof Array) {
                 return !figura[perguntas[perguntaIndex].campo].includes(perguntas[perguntaIndex].texto);
             } else {
@@ -78,6 +77,6 @@ function answer(resposta) {
     nextQuestion();
 }
 
-// Começar o jogo
+// começar o jogo
 shuffleQuestions(perguntas); // embaralha as pergunta para a ordem ser random
 nextQuestion();
