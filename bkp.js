@@ -52,6 +52,7 @@ function nextQuestion() {
         // se for para pergunta sobre realizações dos mano, escolhe uma realização aleatória
         const realizacaoIndex = Math.floor(Math.random() * figurasHistoricas[aleatorio].principaisRealizacoes.length);
         const realizacao = figurasHistoricas[aleatorio].principaisRealizacoes[realizacaoIndex];
+        console.log(figurasHistoricas[aleatorio]);
         document.getElementById('question').textContent = pergunta.texto.replace("{realizacao}", realizacao);
     } else {
         // para as outras perguntas (ocupação, período, etc.), esse codigo burro escolhe o primeiro valor
@@ -81,7 +82,7 @@ function answer(resposta) {
                 return figura[perguntas[perguntaIndex].campo] !== perguntas[perguntaIndex].texto;
             }
         });
-        console.log(filtro);
+        console.log(figura);
     }
 
     figurasPossiveis = filtro;
