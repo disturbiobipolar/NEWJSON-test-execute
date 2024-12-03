@@ -89,4 +89,4 @@ function answer(resposta) {
 }
 // começar o jogo
 shuffleQuestions(perguntas); // embaralha as pergunta para a ordem ser random
-nextQuestion();
+
