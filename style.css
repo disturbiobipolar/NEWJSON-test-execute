@@ -3,6 +3,21 @@
         font-family: Arial, sans-serif;
             margin: 20px;
             text-align: center;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff99cc, #66ccff);
+            background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22 viewBox=%220 0 200 200%22%3E%3Ccircle cx=%22100%22 cy=%22100%22 r=%22100%22 fill=%22%23ffcc00%22 opacity=%220.5%22/%3E%3Ccircle cx=%22150%22 cy=%22150%22 r=%22100%22 fill=%22%23ff3366%22 opacity=%220.5%22/%3E%3C/svg%3E');
+            background-size: 100px 100px;
+            background-repeat: repeat;
+
+        }
+
+        fieldset {
+
+            background-color: aliceblue;
 
         }
         button {

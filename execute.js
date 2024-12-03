@@ -1,95 +1,107 @@
-
-let figurasPossiveis = [...figurasHistoricas];
+let figurasPossiveis = [];
 let perguntaIndex = 0;
-let figura;
+let descartadas = {}; // Objeto para armazenar características descartadas
 
 let perguntas = [
     { campo: "ocupacao", texto: "A pessoa é um(a) {ocupacao}?" },
     { campo: "periodo", texto: "A pessoa viveu na {periodo}?" },
     { campo: "principaisRealizacoes", texto: "A pessoa realizou algo relacionado a {realizacao}?" },
-    { campo: "descricao", texto: "A pessoa é famosa por sua inteligência ou sabedoria?" }
+    { campo: "descricao", texto: "A pessoa é famosa por sua inteligência ou sabedoria?" },
+    { campo: "nacionalidade", texto: "A pessoa é originária de {nacionalidade}?" },
+    { campo: "genero", texto: "A pessoa se identifica como {genero}?" },
+    { campo: "fatospersonalidade", texto: "A personalidade que você está pensando foi {fatospersonalidade}?" }
 ];
 
-// função p  embaralhar as perguntas
+// Função para embaralhar as perguntas
 function shuffleQuestions(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]]; // Troca os elementos
+        [arr[i], arr[j]] = [arr[j], arr[i]];
     }
 }
 
 function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min);
-  }
+}
 
+// Carregar personagens do JSON
+async function carregarFigurasHistoricas() {
+    try {
+        const response = await fetch('figurasHistoricas.json'); // Certifique-se de que o arquivo JSON esteja acessível.
+        const data = await response.json();
+        figurasPossiveis = data.figuras;
+        iniciarJogo();
+    } catch (error) {
+        console.error("Erro ao carregar figuras históricas:", error);
+    }
+}
 
-// função para gerar a próxima pergunta
+// Função para gerar a próxima pergunta
 function nextQuestion() {
-
-    let aleatorio = getRandomInt(0,figurasHistoricas.length);
-
+    // Se sobrou uma figura, o jogo adivinhou corretamente
     if (figurasPossiveis.length === 1) {
-        // caso reste só uma pessoa, vai mostra isso ae
-        document.getElementById('question').textContent = 'Você estava pensando em ${figurasHistoricas[aleatorio].nome}?';
-        document.getElementById('result').textContent = figurasHistoricas[aleatorio].descricao;
-        
+        const figura = figurasPossiveis[0];
+        document.getElementById('question').textContent = `Você estava pensando em ${figura.nome}?`;
+        document.getElementById('result').textContent = figura.descricao;
         return;
     }
 
+    // Se não houver mais perguntas possíveis
     if (perguntaIndex >= perguntas.length) {
-        // se não tiver mais perguntas para fazer, finaliza o jogo
-        document.getElementById('question').textContent = "Eu não consegui adivinhar. Você tem outra figura em mente?";
-        document.getElementById('result').textContent = "";
-        return;
+        perguntaIndex = 0; // Reinicia para fazer as perguntas restantes
     }
 
-    const pergunta = perguntas[perguntaIndex];
+    let pergunta = perguntas[perguntaIndex];
+
+    // Pula perguntas descartadas
+    while (descartadas[pergunta.campo] && perguntaIndex < perguntas.length) {
+        perguntaIndex++;
+        if (perguntaIndex >= perguntas.length) perguntaIndex = 0;
+        pergunta = perguntas[perguntaIndex];
+    }
+
     const atributo = pergunta.campo;
 
     if (atributo === 'principaisRealizacoes') {
-        // se for para pergunta sobre realizações dos mano, escolhe uma realização aleatória
-        const realizacaoIndex = Math.floor(Math.random() * figurasHistoricas[aleatorio].principaisRealizacoes.length);
-        const realizacao = figurasHistoricas[aleatorio].principaisRealizacoes[realizacaoIndex];
-        document.getElementById('question').textContent = pergunta.texto.replace("{realizacao}", realizacao);
+        const figuraAleatoria = figurasPossiveis[getRandomInt(0, figurasPossiveis.length)];
+        if (figuraAleatoria.principaisRealizacoes.length > 0) {
+            const realizacaoIndex = getRandomInt(0, figuraAleatoria.principaisRealizacoes.length);
+            const realizacao = figuraAleatoria.principaisRealizacoes[realizacaoIndex];
+            document.getElementById('question').textContent = pergunta.texto.replace("{realizacao}", realizacao);
+        }
     } else {
-        // para as outras perguntas (ocupação, período, etc.), esse codigo burro escolhe o primeiro valor
-        const valor = figurasHistoricas[aleatorio][atributo] || figurasHistoricas[aleatorio][atributo][0];  // Pega o primeiro valor caso seja uma lista
+        const figuraAleatoria = figurasPossiveis[getRandomInt(0, figurasPossiveis.length)];
+        const valor = Array.isArray(figuraAleatoria[atributo]) ? figuraAleatoria[atributo][0] : figuraAleatoria[atributo];
         document.getElementById('question').textContent = pergunta.texto.replace(`{${atributo}}`, valor);
     }
 }
 
 // Função para processar a resposta
 function answer(resposta) {
-    let filtro;
+    const perguntaAtual = perguntas[perguntaIndex];
+    const atributo = perguntaAtual.campo;
 
-    if (resposta === "sim") {
-        filtro = figurasPossiveis.filter(figura => {
-            if (figura[perguntas[perguntaIndex].campo] instanceof Array) {
-                return figura[perguntas[perguntaIndex].campo].includes(perguntas[perguntaIndex].texto);  // Para listas, verifica se contém o valor
-            } else {
-                return figura[perguntas[perguntaIndex].campo] === perguntas[perguntaIndex].texto;
-            }
-        });
-        console.log(figura)
-    } else if (resposta === "nao") {
-        filtro = figurasPossiveis.filter(figura => {
-            if (figura[perguntas[perguntaIndex].campo] instanceof Array) {
-                return !figura[perguntas[perguntaIndex].campo].includes(perguntas[perguntaIndex].texto);
-            } else {
-                return figura[perguntas[perguntaIndex].campo] !== perguntas[perguntaIndex].texto;
-            }
-        });
-        console.log(filtro);
-    }
+    figurasPossiveis = figurasPossiveis.filter(figura => {
+        const valorFigura = figura[atributo];
+        const textoPergunta = document.getElementById('question').textContent;
+        const valorPergunta = textoPergunta.split(' ').pop().replace("?", "");
 
-    figurasPossiveis = filtro;
+        if (resposta === "sim") {
+            return Array.isArray(valorFigura) ? valorFigura.includes(valorPergunta) : valorFigura === valorPergunta;
+        } else {
+            descartadas[atributo] = true; // Marca a característica como descartada
+            return Array.isArray(valorFigura) ? !valorFigura.includes(valorPergunta) : valorFigura !== valorPergunta;
+        }
+    });
+
     perguntaIndex++;
-
     nextQuestion();
 }
 
-// começar o jogo
-shuffleQuestions(perguntas); // embaralha as pergunta para a ordem ser random
-nextQuestion();
+// Iniciar o jogo após carregar as figuras
+function iniciarJogo() {
+    shuffleQuestions(perguntas);
+    nextQuestion();
+}
+
+carregarFigurasHistoricas();
